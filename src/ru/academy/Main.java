@@ -11,7 +11,7 @@ import java.nio.file.Path;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        InetSocketAddress socketAddress = new InetSocketAddress(8080);
 //        HttpServer httpServer = HttpServer.create(socketAddress, 0);
 //
@@ -33,12 +33,11 @@ public class Main {
 //
 //
 //        });
-        WebServer webServer = new WebServer(8080);
-        try{
-            webServer.start();
-        }catch (IOException e){
-            System.out.println("Ошибка сервера: " + e.getMessage());
-            e.printStackTrace();
-        }
+        StaticFileServer staticFileServer = new StaticFileServer(8080);
+      staticFileServer.addStaticFilesDirectory(Path.of("static/images"));
+      staticFileServer.addStaticFilesDirectory(Path.of("static/text"));
+
+      staticFileServer.start();
+
     }
 }
